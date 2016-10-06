@@ -8,6 +8,7 @@ var moment = require('moment');
 var jsYaml = require('js-yaml');
 var gutil = require('gulp-util');
 var wfHelper = require('./wfHelper');
+var editUtils = require('./editUtils');
 
 var TEST_ROOT = 'src/content/';
 var STD_EXCLUDES = [
@@ -18,81 +19,36 @@ var STD_EXCLUDES = [
   '!**/en/fundamentals/getting-started/codelabs/*/*.md'
 ];
 
-// ToDo: HTTP test fails to match 'HTTPs' and ignores 'https://' and 'http://'.
-var APPROVED_VOCABULARY = [
-  { label: '"DevTools" must be spelled and capitalized as shown.', regEx: /(?!DevTools)([dD]ev\s?[tT]ools)/ },
-  { label: '"Home screen" is two words.', regEx: /homescreen/ },
-  { label: '"Mobile" should not be capitalized unless it begins a sentence.', regEx: /Mobile/ },
-  { label: '"Website" is one word, not two.', regEx: /[Ww]eb [Ss]ite/ },
-  { label: '"Service worker" should not be capitalized.', regEx: /(?!service worker)([Ss]ervice [Ww]orker)/ },
-  { label: '"HTTP and HTTPS" must be capitalized.', regEx: /(?! http-)(?![-/]https?)(?![\S\s]https?:)(?![\S\s]HTTPS?[^s][\S\s])[\S\s]([Hh][Tt][Tt][Pp][Ss]?)[\S\s]/g },
-  { label: 'There must be a space between "Chrome" and the version number.', regEx: /(?!wf_tags:\s(?:[\w\d]+,?)*,?[Cc]hrome\d\d)[Cc]hrome\d\d/ },
-  { label: 'Don\'t use "version" in Chrome version numbers. Use "Chrome ##" instead.', regEx: /(?!wf_tags:\s(?:[\w\d]+,?)*,?[Cc]hrome\d\d)[Cc]hrome\s[Vv]ersion\s\d\d/g },
-  { label: '"Chrome" must be capitalized.', regEx: /[^-/]\b(chrome)\b[^-/:]/ },
-  { label: 'Don\'t use "M##" to indicate a Chrome release. Use "Chrome ##" instead.', regEx: /[^,/][Cc]hrome\d\d/g },
-];
-
-var EDITORIAL_SUGGESTIONS = [
-  { label: 'Use "click" rather than "click on".', regEx: /click[ \r\n]on/g },
-  { label: 'Spell out "control". Do not use "ctl".', regEx: /[Cc][Tt][Ll] ?[-+] ?\w/g },
-  { label: 'Spell out "command". Do not use "cmd".', regEx: /[Cc][Mm][Dd] ?[-+] ?\w/g },
-  { label: 'Abbreviation "i.e." frequently confused with "e.g.". Use "in other words" instead.', regEx: /\bi\.? ?e\.?\b/g},
-  { label: 'Abbreviation "e.g." frequently confused with "i.e.". Use "for example" instead.', regEx: /\be\.? ?g\.?\b/g},
-  { label: '"Email" is spelled as shown and only capitalized to begin a sentence.', regEx: /(?!email)(?!^Email)([Ee]-?mail)/mg},
-  { lebel: '"Endpoint" is one word.', regEx: /[Ee]nd\s[Pp]oint/mg },
-  { lebel: '"Filename" is one word.', regEx: /[Ff]ile\s[Nn]ame/mg },
-  { label: '"ID" must be upper case.', regEx: /(?!.?\bid=)[^=]\b([Ii]d)s?\b/g }
-];
-
-
 function reviewMarkdownFile(fileName) {
   var tags;
   var errors = [];
   var warnings = [];
   var fileContent = fs.readFileSync(fileName, 'utf8');
+  // Split generally on 2 consecutive white space chars, usually line breaks
+  var fileFragments = fileContent.split(/(?!  )\s\s/g);
 
+  fileFragments.forEach(function(val, index, array) {
 
-  // Simplify content so that later regex can be simplified and more reliable
-
-  // Get rid of some front matter
-  var fileLines = fileContent.split('\n');
-  for (var i = 0; i < fileLines.length; i++) {
-    //gutil.log(fileLines[i]);
-    if (fileLines[i].startsWith('# ')) {
-      fileLines[i] = '';
-      break;
-    }
-    if (!fileLines[i].startsWith('description:') && !fileLines[i].startsWith('{# wf_featured_snippet:')) {
-      fileLines[i] = '';
-    }
-  }
-  fileContent = fileLines.join('\n');
-
-  // Get rid of other problem strings
-  var SKIP_STRINGS = [
-    /chrome:\/\/flags\/[#\w\d-]+\b/g,
-    /\[[\w\s\-]*\]((?:\W)?\((?:https?:\/\/)?[\/\w\r\n-.]+\))/g,
-    /(\[[\w\s\-]*\])(?:\W)?\((?:https?:\/\/)?[\/\w\r\n-.]+\)/g
-  ]
-  SKIP_STRINGS.forEach(function(str) {
-    fileContent = fileContent.replace(str, '()')
-  });
-
-  // Check approved vocabulary
-  APPROVED_VOCABULARY.forEach(function(str) {
-    var result = str.regEx.exec(fileContent);
-    if (result) {
-      warnings.push({msg: 'Editing Required. "' + result[0] + '."', param: str.label});
+    // Verify case of titles.
+    var reTitle = /#{1,6}\s(.*){:\s\..*\s}/;
+    var rePageTitle = /\s#\s/;
+    var title = val.match(reTitle);
+    if (title) {
+      var pageTitle = val.match(rePageTitle);
+      if (pageTitle) {
+        if (!editUtils.isTitleCase(pageTitle)) {
+          errors.push({msg: 'Page title must be title case.', param: val});
+        }
+      } else {
+        if (pageTitle.indexOf("TL;DR") < 0) {
+          if (!editUtils.isSentenceCase(pageTitle)) {
+            errors.push({msg: 'Section title must be sentence case.', param: val});
+          }
+        }
+      }
     }
   });
 
-  // Make editing suggestions
-  EDITORIAL_SUGGESTIONS.forEach(function(str) {
-    var result = str.regEx.exec(fileContent);
-    if (result) {
-      warnings.push({msg: 'Please edit. "' + result[0] + '."', param: str.label});
-    }
-  });
 
   return {file: fileName, errors: errors, warnings: warnings};
   

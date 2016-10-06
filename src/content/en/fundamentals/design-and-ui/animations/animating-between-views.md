@@ -5,7 +5,7 @@ description: Learn how to animate between two views in your apps.
 {# wf_updated_on: 2016-08-23 #}
 {# wf_published_on: 2014-08-08 #}
 
-# Animating Between Views {: .page-title }
+# animating Between Views {: .page-title }
 
 {% include "web/_shared/contributors/paullewis.html" %}
 
@@ -20,7 +20,7 @@ What these view transitions look and behave like depends on the type of views yo
 
 Success: Try to maintain 60fps for all of your animations. That way, your users won't see stuttering animations that interfere with their experience. Ensure that any animating element has `will-change` set for anything you plan to change well ahead of the animation starting. For view transitions, it’s highly likely you will want to use `will-change: transform`.
 
-## Use translations to move between views
+## Use Translations to move between views
 
 <div class="attempt-left">
   <figure>
