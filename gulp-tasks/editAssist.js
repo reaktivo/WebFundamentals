@@ -25,7 +25,7 @@ var APPROVED_VOCABULARY = [
   { label: '"Mobile" should not be capitalized unless it begins a sentence.', regEx: /Mobile/ },
   { label: '"Website" is one word, not two.', regEx: /[Ww]eb [Ss]ite/ },
   { label: '"Service worker" should not be capitalized.', regEx: /(?!service worker)([Ss]ervice [Ww]orker)/ },
-  { label: '"HTTP and HTTPS" must be capitalized.', regEx: /(?!HTTPS?[^s])(?! https?:) ([Hh][Tt][Tt][Pp][Ss]?)/g },
+  { label: '"HTTP and HTTPS" must be capitalized.', regEx: /(?! http-)(?![-/]https?)(?![\S\s]https?:)(?![\S\s]HTTPS?[^s][\S\s])[\S\s]([Hh][Tt][Tt][Pp][Ss]?)[\S\s]/g },
   { label: 'There must be a space between "Chrome" and the version number.', regEx: /(?!wf_tags:\s(?:[\w\d]+,?)*,?[Cc]hrome\d\d)[Cc]hrome\d\d/ },
   { label: 'Don\'t use "version" in Chrome version numbers. Use "Chrome ##" instead.', regEx: /(?!wf_tags:\s(?:[\w\d]+,?)*,?[Cc]hrome\d\d)[Cc]hrome\s[Vv]ersion\s\d\d/g },
   { label: '"Chrome" must be capitalized.', regEx: /[^-/]\b(chrome)\b[^-/:]/ },
