@@ -19,6 +19,11 @@ var STD_EXCLUDES = [
   '!**/en/fundamentals/getting-started/codelabs/*/*.md'
 ];
 
+var EXPERIMENTAL_STRINGS = [
+  { label: '"DevTools" must be spelled and capitalized as shown.', regEx: /(?!DevTools)([dD]ev\s?[tT]ools)/ }
+]
+
+
 function reviewMarkdownFile(fileName) {
   var tags;
   var errors = [];
@@ -27,26 +32,53 @@ function reviewMarkdownFile(fileName) {
   // Split generally on 2 consecutive white space chars, usually line breaks
   var fileFragments = fileContent.split(/(?!  )\s\s/g);
 
-  fileFragments.forEach(function(val, index, array) {
 
-    // Verify case of titles.
-    var reTitle = /#{1,6}\s(.*){:\s\..*\s}/;
-    var rePageTitle = /\s#\s/;
-    var title = val.match(reTitle);
+  var reWfDates = /{#\s+wf_\w+:\s\d{4}(?:-\d{1,2}){2}\s+#}/;
+  var rePageTitle = /\s#\s/;
+  var reInclude = /{%\s+include\s+"web\/_shared\/contributors\/\w+\.html"\s+%}/
+  var reTitle = /#{1,6}\s(.*){:\s\..*\s}/;
+  var reTlDr = /#+\s+TL;DR\s+{:\s+\.hide-from-toc\s+}/
+
+  fileFragments.forEach(function(fragment, index, array) {
+
+    //Skip metadata
+    if (fragment.indexOf("project_path") >= 0) { return; }
+    if (fragment.indexOf("book_path") >= 0 ) { return; }
+    if (fragment.indexOf("description:") = 0 ) { return; }
+    if (fragment.match(reWfDates)) { return; }
+    if (fragment.match(reInclude)) { return; }
+
+    //Skip certain kinds of fragments
+    if (fragment.match(reTlDr)) { return; }
+    if (editUtils.isCodeSample(fragment)) { return; }
+
+
+    // Verify case of titles
+    var title = fragment.match(reTitle);
     if (title) {
-      var pageTitle = val.match(rePageTitle);
+      var pageTitle = fragment.match(rePageTitle);
       if (pageTitle) {
         if (!editUtils.isTitleCase(pageTitle)) {
-          errors.push({msg: 'Page title must be title case.', param: val});
+          errors.push({msg: 'Page title must be title case.', param: fragment});
         }
       } else {
         if (pageTitle.indexOf("TL;DR") < 0) {
           if (!editUtils.isSentenceCase(pageTitle)) {
-            errors.push({msg: 'Section title must be sentence case.', param: val});
+            errors.push({msg: 'Section title must be sentence case.', param: fragment});
           }
         }
       }
     }
+
+
+    // Check approved vocabulary
+    EXPERIMENTAL_STRINGS.forEach(function(str) {
+      var result = str.regEx.exec(fileContent);
+      if (result) {
+        warnings.push({msg: 'Editing Required. "' + result[0] + '."', param: str.label});
+      }
+    });
+
   });
 
 

@@ -9,6 +9,13 @@ var LC_WORDS = ['a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'from',
                 'in', 'into', 'near', 'nor', 'of', 'on', 'onto', 'or', 'the', 'to', 'with'];
 var UC_WORDS = ['DR', 'HTTP', 'HTTPS', 'ID', 'TL'];
 
+function isCodeSample(chunk) {
+	var reIndent = /( {4}).+/g;
+	var lines = (chunk.match(/\n/g)||[]).length;
+	var indents = chunk.match(reIndent).length;
+	return (lines == indents);
+}
+
 function isTitleCase(title) {
 	var words = title.split(' ');
 	var retVal = true;
@@ -44,3 +51,4 @@ function isSentenceCase(title) {
 
 exports.isTitleCase = isTitleCase;
 exports.isSentenceCase = isSentenceCase;
+exports.isCodeSample = isCodeSample;
