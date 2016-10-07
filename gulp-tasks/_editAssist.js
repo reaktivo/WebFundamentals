@@ -19,6 +19,7 @@ var STD_EXCLUDES = [
 ];
 
 // ToDo: HTTP test fails to match 'HTTPs' and ignores 'https://' and 'http://'.
+// IndexedDB, not IndexedDb
 var APPROVED_VOCABULARY = [
   { label: '"DevTools" must be spelled and capitalized as shown.', regEx: /(?!DevTools)([dD]ev\s?[tT]ools)/ },
   { label: '"Home screen" is two words.', regEx: /homescreen/ },

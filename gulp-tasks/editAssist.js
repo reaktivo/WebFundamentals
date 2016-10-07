@@ -34,17 +34,22 @@ function reviewMarkdownFile(fileName) {
 
 
   var reWfDates = /{#\s+wf_\w+:\s\d{4}(?:-\d{1,2}){2}\s+#}/;
-  var rePageTitle = /\s#\s/;
+  // var rePageTitle = /^#{1,6} (.*) {: .page-title }/gm;
   var reInclude = /{%\s+include\s+"web\/_shared\/contributors\/\w+\.html"\s+%}/
-  var reTitle = /#{1,6}\s(.*){:\s\..*\s}/;
+  // var reTitle = /#{1,6}\s(.*){:\s\..*\s}/;
+  var reTitle = /#{1,6}\s([\w ,:]*[^{])(?:{:\s\..*\s})?/;
   var reTlDr = /#+\s+TL;DR\s+{:\s+\.hide-from-toc\s+}/
 
   fileFragments.forEach(function(fragment, index, array) {
+    while (fragment.startsWith('\n')) {
+      fragment = fragment.substring(1, fragment.length);
+    }
+    // if (fragment == '') { return; }
 
     //Skip metadata
     if (fragment.indexOf("project_path") >= 0) { return; }
     if (fragment.indexOf("book_path") >= 0 ) { return; }
-    if (fragment.indexOf("description:") = 0 ) { return; }
+    if (fragment.indexOf("description:") == 0 ) { return; }
     if (fragment.match(reWfDates)) { return; }
     if (fragment.match(reInclude)) { return; }
 
@@ -55,17 +60,16 @@ function reviewMarkdownFile(fileName) {
 
     // Verify case of titles
     var title = fragment.match(reTitle);
+
     if (title) {
-      var pageTitle = fragment.match(rePageTitle);
-      if (pageTitle) {
-        if (!editUtils.isTitleCase(pageTitle)) {
-          errors.push({msg: 'Page title must be title case.', param: fragment});
+      // gutil.log(title[0], title[1]);
+      if (title[0].indexOf(".page-title") >= 0) {
+        if (!editUtils.isTitleCase(title[1])) {
+          errors.push({msg: "Page title must be title case.", param: fragment});
         }
       } else {
-        if (pageTitle.indexOf("TL;DR") < 0) {
-          if (!editUtils.isSentenceCase(pageTitle)) {
-            errors.push({msg: 'Section title must be sentence case.', param: fragment});
-          }
+        if (!editUtils.isSentenceCase(title[1])) {
+          errors.push({msg: "Section title must be sentence case.", param: fragment});
         }
       }
     }
