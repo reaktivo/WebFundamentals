@@ -12,7 +12,7 @@ into Google Chrome. Use the DevTools to iterate, debug and profile your site.
 
 Dogfood: Looking for the latest, [Chrome Canary](https://tools.google.com/dlpage/chromesxs) always has the latest DevTools.
 
-## Opening the Chrome DevTools
+## Opening the Chrome DevTools {: #open }
 
 * Select **More Tools** > **Developer Tools** from the Chrome Menu.
 * Right-click on a page element and select Inspect
@@ -109,4 +109,4 @@ Use the Security Panel to debug mixed content issues, problems with your certifi
 
 [Twitter](https://twitter.com/ChromeDevTools){: .button .button-white}
 [Stack Overflow](https://stackoverflow.com/questions/tagged/google-chrome-devtools){: .button .button-white}
-[Slack](https://chromiumdev.slack.com/messages/devtools/){: .external }{: .button .button-white}
+[Slack](https://chromiumdev.slack.com/messages/devtools/){: .button .button-white}

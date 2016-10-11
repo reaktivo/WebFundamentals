@@ -61,7 +61,7 @@ content to match different screen sizes, whether rendered on a small mobile
 phone or a large desktop monitor.
 
 <div class="attempt-left">
-  <a href="https://googlesamples.github.io/web-fundamentals/samples/fundamentals/design-and-ui/responsive/vp-no.html">
+  <a href="https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/vp-no.html">
   <figure>
     <img src="imgs/no-vp.png" srcset="imgs/no-vp.png 1x, imgs/no-vp-2x.png 2x" alt="Page without a viewport set">
     <figcaption>
@@ -71,7 +71,7 @@ phone or a large desktop monitor.
   </a>
 </div>
 <div class="attempt-right">
-  <a href="https://googlesamples.github.io/web-fundamentals/samples/fundamentals/design-and-ui/responsive/vp.html">
+  <a href="https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/vp.html">
   <figure>
     <img src="imgs/vp.png" srcset="imgs/vp.png 1x, imgs/vp-2x.png 2x" alt="Page with a viewport set">
     <figcaption>
@@ -129,7 +129,7 @@ large absolute positioning values that may cause the element to fall outside the
 viewport on small screens.  
 
 <div class="attempt-left">
-  <a href="https://googlesamples.github.io/web-fundamentals/samples/fundamentals/design-and-ui/responsive/vp-fixed.html">
+  <a href="https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/vp-fixed.html">
   <figure>
     <img src="imgs/vp-fixed-iph.png" srcset="imgs/vp-fixed-iph.png 1x, imgs/vp-fixed-iph-2x.png 2x" alt="Page with a 344px fixed width element on an iPhone.">
     <figcaption>
@@ -139,7 +139,7 @@ viewport on small screens.
   </a>
 </div>
 <div class="attempt-right">
-  <a href="https://googlesamples.github.io/web-fundamentals/samples/fundamentals/design-and-ui/responsive/vp-fixed.html">
+  <a href="https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/vp-fixed.html">
   <figure>
     <img src="imgs/vp-fixed-n5.png" srcset="imgs/vp-fixed-n5.png 1x, imgs/vp-fixed-n5-2x.png 2x" alt="Page with a 344px fixed width element on a Nexus 5.">
     <figcaption>
@@ -243,7 +243,7 @@ often for responsive web design are `min-width`, `max-width`, `min-height`, and
 Let's take a look at an example:
 
 <figure>
-  <a href="https://googlesamples.github.io/web-fundamentals/samples/fundamentals/design-and-ui/responsive/media-queries.html">
+  <a href="https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/media-queries.html">
     <img src="imgs/mq.png" srcset="imgs/mq.png 1x, imgs/mq-2x.png 2x" alt="Preview of a page using media queries to change properties as it is resized.">
     <figcaption>
       Preview of a page using media queries to change properties as it is resized.
@@ -254,6 +254,8 @@ Let's take a look at an example:
 <pre class="prettyprint">
 {% includecode content_path="web/fundamentals/design-and-ui/responsive/_code/media-queries.html" region_tag="mqueries" adjust_indentation="auto" %}
 </pre>
+
+[Try it](https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/media-queries.html){: target="_blank" .external }
 
 * When the browser is between <b>0px</b> and <b>640px</b> wide, `max-640px.css` is applied.
 * When the browser is between <b>500px</b> and <b>600px</b> wide, styles within the `@media` is applied.
@@ -336,7 +338,7 @@ the layout adjusts to its container.
 <figure class="attempt-right">
   <img src="imgs/weather-1.png" srcset="imgs/weather-1.png 1x, imgs/weather-1-2x.png 2x" alt="">
   <figcaption>
-    <a href="https://googlesamples.github.io/web-fundamentals/samples/fundamentals/design-and-ui/responsive/weather-1.html">
+    <a href="https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/weather-1.html">
       Preview of the weather forecast displayed on a small screen.
     </a>
   </figcaption>
@@ -356,7 +358,7 @@ small screen.
 <figure class="attempt-right">
   <img src="imgs/weather-2.png" class="center" srcset="imgs/weather-2.png 1x, imgs/weather-2-2x.png 2x" alt="Preview of the weather forecast as the page gets wider.">
   <figcaption>
-    <a href="https://googlesamples.github.io/web-fundamentals/samples/fundamentals/design-and-ui/responsive/weather-1.html">
+    <a href="https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/weather-1.html">
       Preview of the weather forecast as the page gets wider.
     </a>
   </figcaption>
@@ -375,10 +377,12 @@ browser is 600px and below, and one for when it is wider than 600px.
 {% includecode content_path="web/fundamentals/design-and-ui/responsive/_code/weather-2.html" region_tag="mqweather2" adjust_indentation="auto" %}
 </pre>
 
+[Try it](https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/weather-2.html){: target="_blank" .external }
+
 <figure class="attempt-right">
   <img src="imgs/weather-3.png"  srcset="imgs/weather-3.png 1x, imgs/weather-3-2x.png 2x" alt="Preview of the weather forecast designed for a wider screen.">
   <figcaption>
-    <a href="https://googlesamples.github.io/web-fundamentals/samples/fundamentals/design-and-ui/responsive/weather-2.html">
+    <a href="https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/weather-2.html">
       Preview of the weather forecast designed for a wider screen.
     </a>
   </figcaption>
@@ -467,6 +471,8 @@ than 575px, the ideal content width is 550px.
 {% includecode content_path="web/fundamentals/design-and-ui/responsive/_code/reading.html" region_tag="mqreading" adjust_indentation="auto" %}
 </pre>
 
+[Try it](https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ui/responsive/reading.html){: target="_blank" .external }
+
 ### Never completely hide content
 
 Be careful when choosing what content to hide or show depending on screen size.
@@ -476,3 +482,31 @@ eliminating the pollen count from the weather forecast could be a serious issue
 for spring-time allergy sufferers who need the information to determine if they
 can go outside or not.
 
+## View media query breakpoints in Chrome DevTools {: #devtools }
+
+Once you've got your media query breakpoints set up, you'll want to see how
+your site looks with them. You *could* resize your browser window to trigger
+the breakpoints, but there's a better way: Chrome DevTools. The two
+screenshots below demonstrate using DevTools to view how a page looks under
+different breakpoints.
+
+![Example of DevTools' media queries feature](imgs/devtools-media-queries-example.png)
+
+To view your page under different breakpoints:
+
+[Open DevTools](/web/tools/chrome-devtools/#open) and then turn on [Device
+Mode](/web/tools/chrome-devtools/device-mode/#toggle).
+
+Use the
+[viewport controls](/web/tools/chrome-devtools/device-mode/emulate-mobile-viewports#viewport-controls)
+to select **Responsive**, which puts DevTools into responsive mode.
+
+Last, open the Device Mode menu and select
+[**Show media queries**](/web/tools/chrome-devtools/device-mode/emulate-mobile-viewports#media-queries)
+to display your breakpoints as colored bars above your page.
+
+Click on one of the bars to view your page while that media
+query is active. Right-click on a bar to jump to the media query's
+definition. See 
+[Media queries](/web/tools/chrome-devtools/device-mode/emulate-mobile-viewports#media-queries)
+for more help.
