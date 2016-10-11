@@ -19,9 +19,17 @@ var PAGE_TITLE_TESTS = [
 	{ expected: true, test: "Re-rastering Composited Layers on Scale Change"},
 	{ expected: true, test: " Builder "},
 	{ expected: true, test: "DevTools Digest, September 2016: Perf Roundup"},
-	{ expected: true, test: "Use of `initTouchEvent` Is Removed"}
+	{ expected: true, test: "Use of `initTouchEvent` Is Removed"},
+	{ expected: false, test: "Are there any restrictions to using the API?"},
+	{ expected: true, test: "Muted Autoplay on Mobile: Say Goodbye to Canvas Hacks and Animated GIFs!"},
+	{ expected: true, test: "Flexbox Gets New Behavior for absolute-positioned Children"},
+	{ expected: true, test: "Goodbye Short Sessions: A Proposal for Improving Cookie Management"},
+	{ expected: false, test: "ResizeObserver: It’s like document.onresize for elements"},
+	{ expected: true, test: "ResizeObserver: It’s Like document.onresize for Elements"},
+	{ expected: true, test: "What’s New with KeyboardEvents? Keys and Codes!"}
 ]
-
+//Goodbye Short Sessions: A Proposal for Using Service Workers to Improve Cookie Management on the Web
+// APPROACH split into two titles.
 var TITLE_TESTS = [,
 	{ expected: true, test: "This is a correct title two"},
 	{ expected: false, test: "This Is an Incorrect Title Two"},
@@ -32,7 +40,15 @@ var TITLE_TESTS = [,
 	{ expected: true, test: "Deprecate SVGSVGElement.viewPort"},
 	{ expected: true, test: "How do I fix this?"},
 	{ expected: true, test: "Use of `initTouchEvent` is removed"},
-	{ expected: true, test: "Remove MediaStream ended event and attribute and onended attribute"}
+	{ expected: true, test: "Remove MediaStream ended event and attribute and onended attribute"},
+	{ expected: true, test: "Are there any restrictions to using the API?"},
+	{ expected: true, test: "Deprecate SVGSVGElement.viewPort"},
+	{ expected: true, test: "2. Show the native UI with .show()"},
+	{ expected: false, test: "Real-world Uses"},
+	{ expected: true, test: 'What about “Clear Data”?'},
+	{ expected: true, test: 'Style (contain: style)'},
+	{ expected: true, test: 'iframe magic'},
+	{ expected: true, test: 'KeyboardEvent.keyIdentifier attribute removed'}
 ]
 
 function reportTest(testName, result, test) {

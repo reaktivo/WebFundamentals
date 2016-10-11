@@ -34,10 +34,10 @@ function reviewMarkdownFile(fileName) {
 
 
   var reWfDates = /{#\s+wf_\w+:\s\d{4}(?:-\d{1,2}){2}\s+#}/;
-  // var rePageTitle = /^#{1,6} (.*) {: .page-title }/gm;
   var reInclude = /{%\s+include\s+"web\/_shared\/contributors\/\w+\.html"\s+%}/
   // var reTitle = /#{1,6}\s(.*){:\s\..*\s}/;
-  var reTitle = /#{1,6}\s([\w ,:]*[^{])(?:{:\s\..*\s})?/;
+  // var reTitle = /#{1,6}\s([\w ,.:]*[^{])(?:{:\s\..*\s})?/;
+  var reTitle = /#{1,6}\s([\w !"“'’\(\-,.:\<\>\?]*[^{])(?:{:\s\..*\s})?/;
   var reTlDr = /#+\s+TL;DR\s+{:\s+\.hide-from-toc\s+}/
 
   fileFragments.forEach(function(fragment, index, array) {
@@ -62,14 +62,13 @@ function reviewMarkdownFile(fileName) {
     var title = fragment.match(reTitle);
 
     if (title) {
-      // gutil.log(title[0], title[1]);
       if (title[0].indexOf(".page-title") >= 0) {
         if (!editUtils.isTitleCase(title[1])) {
-          errors.push({msg: "Page title must be title case.", param: fragment});
+          errors.push({msg: "Page title must be title case.", param: title});
         }
       } else {
         if (!editUtils.isSentenceCase(title[1])) {
-          errors.push({msg: "Section title must be sentence case.", param: fragment});
+          errors.push({msg: "Section title must be sentence case.", param: title[0]});
         }
       }
     }
